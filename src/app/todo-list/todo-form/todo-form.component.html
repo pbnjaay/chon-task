@@ -1,0 +1,23 @@
+<form class="text-center" (ngSubmit)="addItem(form)" #form="ngForm">
+  <h3 class="text-uppercase">Todo app</h3>
+  <input
+    class="form-control"
+    placeholder="What needs to be done ?"
+    type="text"
+    name="todo"
+    required
+    ngModel
+    required
+    #todo="ngModel"
+  />
+  <div class="alert alert-danger" *ngIf="todo.touched && todo.invalid">
+    Required field
+  </div>
+  <button
+    type="submit"
+    [disabled]="!form.valid"
+    class="btn btn-dark mt-3 w-100"
+  >
+    Add
+  </button>
+</form>

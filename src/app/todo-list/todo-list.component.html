@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <todo-form (add)="addItem($event)"></todo-form>
+    </div>
+  </div>
+  <div class="row px-4">
+    <div class="col">
+      <todo-filter
+        (all)="listAllItem()"
+        (active)="listActiveItem()"
+        (completed)="listCompletedItem()"
+      ></todo-filter>
+      <h4 class="text-left mt-4 mb-2" [ngPlural]="itemsTodisplay.length">
+        <ng-template ngPluralCase="=0"
+          >{{ itemsTodisplay.length }} task remaining</ng-template
+        >
+        <ng-template ngPluralCase="=1"
+          >{{ itemsTodisplay.length }} task remaining</ng-template
+        >
+        <ng-template ngPluralCase="other"
+          >{{ itemsTodisplay.length }} tasks remaining</ng-template
+        >
+      </h4>
+      <ul class="list-group" *ngIf="itemsTodisplay.length">
+        <todo-item
+          *ngFor="let item of itemsTodisplay"
+          [item]="item"
+          (delete)="deleteItem(item)"
+          (edit)="editItem(item)"
+        ></todo-item>
+      </ul>
+    </div>
+  </div>
+</div>
