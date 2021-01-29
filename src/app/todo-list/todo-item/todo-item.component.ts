@@ -14,9 +14,9 @@ export class TodoItemComponent implements OnInit {
 
   constructor() {}
 
+  ngOnInit(): void {}
+
   editTask() {
     this.edit.emit();
   }
-
-  ngOnInit(): void {}
 }
