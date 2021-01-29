@@ -18,6 +18,7 @@ import { TodoFilterComponent } from './todo-list/todo-filter/todo-filter.compone
     TodoFilterComponent,
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -1,53 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from './todo-item/todo-item.component';
+import { Task } from './Task';
 import { TodoService } from './todo.service';
 
 @Component({
   selector: 'todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css'],
 })
 export class TodoListComponent implements OnInit {
-  items: Item[] = [];
-  itemsTodisplay: Item[];
+  tasks: Task[] = [];
+  showedTasks: Task[] = [];
 
   constructor(private todoService: TodoService) {}
 
-  deleteItem(item: Item) {
-    this.todoService.deletItem(item.id).subscribe((res) => {
-      let i = this.items.indexOf(item);
-      this.items.splice(i, 1);
+  ngOnInit(): void {
+    this.todoService
+      .list()
+      .subscribe(
+        (response: Task[]) => (this.showedTasks = this.tasks = response)
+      );
+  }
+
+  listAllTask() {
+    this.showedTasks = this.tasks;
+  }
+
+  listActiveTask() {
+    this.showedTasks = this.tasks.filter((i) => i.completed === false);
+  }
+
+  listCompletedTask() {
+    this.showedTasks = this.tasks.filter((i) => i.completed === true);
+  }
+
+  deleteTask(task: Task) {
+    this.todoService.delete(task.id).subscribe(() => {
+      const i = this.tasks.indexOf(task);
+      this.tasks.splice(i, 1);
     });
   }
 
-  editItem(item: Item) {
-    this.todoService.updateItem(item).subscribe();
+  editTask(task: Task) {
+    this.todoService.update(task).subscribe();
   }
 
-  addItem(e: Item) {
-    this.todoService.addItem(e).subscribe((res: Item) => this.items.push(res));
-  }
-
-  listAllItem() {
-    this.itemsTodisplay = this.items;
-  }
-
-  listActiveItem() {
-    this.itemsTodisplay = this.items.filter((i) => i.completed === false);
-  }
-
-  listCompletedItem() {
-    this.itemsTodisplay = this.items.filter((i) => i.completed === true);
-  }
-
-  ngOnInit(): void {
-    this.getAllItem();
-    this.listActiveItem();
-  }
-
-  private getAllItem() {
+  addTask(task: Task) {
     this.todoService
-      .getAllItem()
-      .subscribe((res: Item[]) => (this.itemsTodisplay = this.items = res));
+      .create(task)
+      .subscribe((response: Task) => this.tasks.push(response));
   }
 }

@@ -1,33 +1,33 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <todo-form (add)="addItem($event)"></todo-form>
+      <todo-form (add)="addTask($event)"></todo-form>
     </div>
   </div>
-  <div class="row px-4">
+  <div class="row px-4-md">
     <div class="col">
       <todo-filter
-        (all)="listAllItem()"
-        (active)="listActiveItem()"
-        (completed)="listCompletedItem()"
+        (allTask)="listAllTask()"
+        (activeTask)="listActiveTask()"
+        (completedTask)="listCompletedTask()"
       ></todo-filter>
-      <h4 class="text-left mt-4 mb-2" [ngPlural]="itemsTodisplay.length">
+      <h4 class="text-left mt-4 mb-2" [ngPlural]="showedTasks.length">
         <ng-template ngPluralCase="=0"
-          >{{ itemsTodisplay.length }} task remaining</ng-template
+          >{{ showedTasks.length }} task remaining</ng-template
         >
         <ng-template ngPluralCase="=1"
-          >{{ itemsTodisplay.length }} task remaining</ng-template
+          >{{ showedTasks.length }} task remaining</ng-template
         >
         <ng-template ngPluralCase="other"
-          >{{ itemsTodisplay.length }} tasks remaining</ng-template
+          >{{ showedTasks.length }} tasks remaining</ng-template
         >
       </h4>
-      <ul class="list-group" *ngIf="itemsTodisplay.length">
+      <ul class="list-group" *ngIf="showedTasks.length">
         <todo-item
-          *ngFor="let item of itemsTodisplay"
-          [item]="item"
-          (delete)="deleteItem(item)"
-          (edit)="editItem(item)"
+          *ngFor="let task of showedTasks"
+          [task]="task"
+          (delete)="deleteTask(task)"
+          (edit)="editTask(task)"
         ></todo-item>
       </ul>
     </div>
