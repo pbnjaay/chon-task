@@ -1,43 +1,45 @@
 <li class="list-group-item">
   <form (ngSubmit)="editTask(); show = false">
-    <div class="form-check mb-2">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        name="completed"
-        [id]="task.id"
-        [(ngModel)]="task.completed"
-        (change)="editTask()"
-      />
-      <label class="form-check-label" [for]="task.id">{{ task.todo }}</label>
-    </div>
-    <div class="row" *ngIf="!show; else edit">
-      <div class="col-6">
-        <button class="btn btn-dark mx-2 w-100" (click)="show = true">
-          Edit
-        </button>
+    <div *ngIf="!show; else edit">
+      <div class="form-check mb-2">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          name="completed"
+          [id]="task.id"
+          [(ngModel)]="task.completed"
+          (change)="editTask()"
+        />
+        <label class="form-check-label" [for]="task.id">{{ task.todo }}</label>
       </div>
-      <div class="col-6">
-        <button
-          class="btn btn-dark w-100"
-          type="button"
-          (click)="delete.emit()"
-        >
-          Delete
-        </button>
+      <div class="row">
+        <div class="col-6">
+          <button class="btn btn-dark mx-2 w-100" (click)="show = true">
+            Edit
+          </button>
+        </div>
+        <div class="col-6">
+          <button
+            class="btn btn-dark w-100"
+            type="button"
+            (click)="delete.emit()"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
     <ng-template #edit>
       <div class="row">
-        <div class="col-6">
+        <div class="col-12">
           <input
-            class="w-100"
+            class="w-100 mb-2"
             type="text"
             name="todo"
             [(ngModel)]="task.todo"
           />
         </div>
-        <div class="col-3">
+        <div class="col-6">
           <button
             class="btn btn-dark w-100"
             type="button"
@@ -46,7 +48,7 @@
             Cancel
           </button>
         </div>
-        <div class="col-3">
+        <div class="col-6">
           <button type="submit" class="btn btn-dark w-100">Save</button>
         </div>
       </div>

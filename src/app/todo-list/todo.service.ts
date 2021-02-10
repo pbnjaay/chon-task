@@ -8,7 +8,7 @@ import { Task } from './Task';
   providedIn: 'root',
 })
 export class TodoService {
-  baseUrl = 'http://localhost:3000/tasks/';
+  url = 'http://localhost:3000/tasks/';
 
   constructor(private http: HttpClient) {}
 
@@ -25,25 +25,25 @@ export class TodoService {
 
   list() {
     return this.http
-      .get<Task[]>(this.baseUrl)
+      .get<Task[]>(this.url)
       .pipe(retry(3), catchError(this.handleError));
   }
 
   create(task: Task) {
     return this.http
-      .post<Task>(this.baseUrl, task)
+      .post<Task>(this.url, task)
       .pipe(retry(3), catchError(this.handleError));
   }
 
   delete(id: number) {
     return this.http
-      .delete<Task>(this.baseUrl + id)
+      .delete<Task>(this.url + id)
       .pipe(retry(3), catchError(this.handleError));
   }
 
   update(task: Task) {
     return this.http
-      .put(this.baseUrl + task.id, task)
+      .put(this.url + task.id, task)
       .pipe(retry(3), catchError(this.handleError));
   }
 }

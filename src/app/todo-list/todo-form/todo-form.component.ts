@@ -6,15 +6,14 @@ import { NgForm } from '@angular/forms';
   templateUrl: './todo-form.component.html',
 })
 export class TodoFormComponent implements OnInit {
-  @Output('add') add = new EventEmitter();
+  @Output() add = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
 
   addItem(form: NgForm) {
-    form.value.completed = false;
-    this.add.emit(form.value);
+    this.add.emit({ todo: form.value.todo, completed: false });
     form.reset();
   }
 }

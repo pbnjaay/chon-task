@@ -9,15 +9,15 @@ import { TodoService } from './todo.service';
 export class TodoListComponent implements OnInit {
   tasks: Task[] = [];
   showedTasks: Task[] = [];
+  isUp: boolean = false;
 
   constructor(private todoService: TodoService) {}
 
   ngOnInit(): void {
-    this.todoService
-      .list()
-      .subscribe(
-        (response: Task[]) => (this.showedTasks = this.tasks = response)
-      );
+    this.todoService.list().subscribe((response: Task[]) => {
+      this.showedTasks = this.tasks = response;
+      this.sortDown();
+    });
   }
 
   listAllTask() {
@@ -30,6 +30,22 @@ export class TodoListComponent implements OnInit {
 
   listCompletedTask() {
     this.showedTasks = this.tasks.filter((i) => i.completed === true);
+  }
+
+  sortDown() {
+    this.showedTasks.sort((a, b) => a.todo.localeCompare(b.todo));
+    this.isUp = true;
+  }
+
+  sortUp() {
+    this.showedTasks.sort((a, b) => b.todo.localeCompare(a.todo));
+    this.isUp = false;
+  }
+
+  search(q: string) {
+    this.showedTasks = q
+      ? this.showedTasks.filter((tasks) => tasks.todo.includes(q))
+      : this.tasks;
   }
 
   deleteTask(task: Task) {

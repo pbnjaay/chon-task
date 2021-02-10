@@ -8,6 +8,7 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoItemComponent } from './todo-list/todo-item/todo-item.component';
 import { TodoFormComponent } from './todo-list/todo-form/todo-form.component';
 import { TodoFilterComponent } from './todo-list/todo-filter/todo-filter.component';
+import { TodoSearchComponent } from './todo-list/todo-search/todo-search.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { TodoFilterComponent } from './todo-list/todo-filter/todo-filter.compone
     TodoItemComponent,
     TodoFormComponent,
     TodoFilterComponent,
+    TodoSearchComponent,
   ],
   imports: [BrowserModule, HttpClientModule, FormsModule],
   exports: [],
