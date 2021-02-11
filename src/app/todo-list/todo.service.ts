@@ -8,7 +8,7 @@ import { Task } from './Task';
   providedIn: 'root',
 })
 export class TodoService {
-  url = 'http://localhost:3000/tasks/';
+  url = 'https://my-json-server.typicode.com/pbnjaay/pbnjaay-chon-task/tasks/';
 
   constructor(private http: HttpClient) {}
 
